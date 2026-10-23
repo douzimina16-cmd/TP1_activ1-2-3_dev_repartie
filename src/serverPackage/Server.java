@@ -1,5 +1,6 @@
 package serverPackage;
 
+import javax.sound.sampled.Port;
 import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
@@ -60,7 +61,7 @@ public class Server {
 //à compléter (TODO)
         try {
 
-
+            final int PORT = 1234;
             ServerSocket socketServer = new ServerSocket(1234);
 
             System.out.println("Je suis un serveur en attente la connexion d'un client ");

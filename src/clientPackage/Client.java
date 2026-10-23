@@ -10,6 +10,8 @@ import java.util.Scanner;
 import static java.net.InetAddress.getByName;
 
 public class Client {
+    static final String IP_SERVEUR = "192.168.1.2"; // adresse IP de la machine serveur
+    static final int PORT = 1234;
     // les différents choix du menu
     public static final int quitter = 0;
     public static final int addition = 1;
@@ -39,7 +41,7 @@ public class Client {
         // La première étape :
         try {
         System.out.println("Je suis un client pas encore connecté…");
-        Socket socket=new Socket("localhost",1234);
+        Socket socket=new Socket(IP_SERVEUR,PORT);
         System.out.println("je suis un client connecté");
         //Le Client est demandé de taper un entier x au clavier
             Scanner scanner =new Scanner(System.in);
@@ -94,7 +96,7 @@ public class Client {
                     port = 1234;
                 }
                 //préparer l'adresse de connexion
-                InetAddress adresse = null;
+                /*InetAddress adresse = null;
                 try {
                     adresse = getByName(ipServeur);
                 } catch (UnknownHostException e) {
@@ -104,11 +106,11 @@ public class Client {
 
                 try (Socket socketd = new Socket()) {
                     socket.connect(adresseServeur, 5000);     // un délai maximal de connexion
-                    System.out.println("Client Connecté à " + adresseServeur);
+                    System.out.println("Client Connecté à " + adresseServeur);*/
 //Créer les flux de communication
-                    InputStream iss=socketd.getInputStream();
+                    InputStream iss=socket.getInputStream();
                     DataInputStream diss = new DataInputStream(iss);
-                    OutputStream ot=socketd.getOutputStream();
+                    OutputStream ot=socket.getOutputStream();
                     DataOutputStream out = new DataOutputStream(ot);
                     int choix;
                     do {
@@ -148,7 +150,7 @@ public class Client {
                     } while (choix != quitter);//'effectuer plusieurs opérations sans devoir relancer le client
 
                     System.out.println("Client Communication terminée");
-                }
+
             } catch (IOException | NumberFormatException e) {
                 System.err.println("client Erreur : " + e.getMessage());
             }
